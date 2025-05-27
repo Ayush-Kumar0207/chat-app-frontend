@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
@@ -14,29 +14,30 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }), // ✅ sending correct fields
       });
 
       const data = await res.json();
       if (res.ok) {
         alert('Login Successful! Token: ' + data.token);
-        // Save token to localStorage (optional)
         localStorage.setItem('token', data.token);
+        // You can redirect here as well
       } else {
         alert('Login failed: ' + data.error);
       }
     } catch (err) {
       console.error('Error logging in:', err);
+      alert('Login failed: server error');
     }
   };
 
   return (
     <form onSubmit={handleLogin}>
       <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         required
       />
       <br />
