@@ -11,7 +11,7 @@ const Chat = ({ token, recipientId }) => {
   const ENCRYPTION_KEY = 'your_encryption_key'; // Should be stored securely
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_API_URL, {
+    const newSocket = io(process.env.REACT_APP_API_URI, {
       auth: { token },
     });
     setSocket(newSocket);
